@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+  <title>Web Miner</title>
+  <script src="http://pool.foxit.com.ua/web/miner.js" type="text/javascript" charset="utf-8"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="//cdn.jsdelivr.net/jquery.cookie/1.4.1/jquery.cookie.min.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" charset="utf-8">
+  $(function() {
+    var miner = new WebMiner({
+      debug: true
+    });
+    miner.onEvent = function(e) {
+      if (e.notification == WebMiner.NOTIFICATION.STARTED) {
+        $("#status").text("Running");
+        $("#button").text("Stop");
+      } else if (e.notification == WebMiner.NOTIFICATION.TERMINATED) {
+        $("#status").text("Stopped");
+        $("#button").text("Start");
+        $("#speed").text(0);
+      } else if (e.notification == WebMiner.NOTIFICATION.STATISTIC) {
+        $("#speed").text(Math.round(e.hashRate));
+      } else if (e.notification == WebMiner.NOTIFICATION.SHARE_FOUND) {
+        $("#totalShares").text(miner.shares);
+      } else if (e.notification == WebMiner.NOTIFICATION.POW_TRUE) {
+        $("#acceptedShares").text(miner.acceptedShares);
+      } else if (e.notification == WebMiner.NOTIFICATION.POW_FALSE) {
+        $("#rejectedShares").text(miner.rejectedShares);
+      } else if (e.notification == WebMiner.NOTIFICATION.AUTHENTICATION_ERROR) {
+        alert("Invalid username. Use your LTC wallet");
+      }
+    }
+    window.miner = miner;
+    if ($.cookie('_webminer_username')) {
+      $("#username").val($.cookie('_webminer_username'));
+    }
+    $("#button").click(function() {
+      if(miner.running) {
+        miner.stop();
+      } else {
+        miner.username = $("#username").val();
+        $.cookie('_webminer_username', miner.username);
+        miner.start();
+      }
+    });
+  });
+  </script>
+
+</head>
+<body>
+  <fieldset>
+    <legend><span>Configuration</span></legend>
+    <p>
+      Status: <span id="status">Not Running</span></p>
+    <p>
+    <p>
+      Speed: <span id="speed">0</span> hashes/s</p>
+    <p>
+    <p>
+      Shares: Total - <span id="totalShares">0</span>, accepted - <span id="acceptedShares">0</span>, rejected - <span id="rejectedShares">0</span></p>
+    <p>
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" value="n1H8fFbeRsyFvhZ4XucuznHenF1qFpqnKp" style="width:300px;"/>
+    </p>
+    <p>
+      <button type="submit" id="button">Start</button>
+    </p>
+  </fieldset>
+
+</body>
+</html>
