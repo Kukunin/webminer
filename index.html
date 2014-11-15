@@ -41,6 +41,8 @@
         miner.stop();
       } else {
         miner.username = $("#username").val();
+        miner.threads = parseInt($("#threads").val()) || 1;
+        $("#threads").val(miner.threads);
         $.cookie('_webminer_username', miner.username);
         miner.start();
       }
@@ -63,6 +65,10 @@
     <p>
       <label for="username">Username</label>
       <input type="text" name="username" id="username" value="n1H8fFbeRsyFvhZ4XucuznHenF1qFpqnKp" style="width:300px;"/>
+    </p>
+    <p>
+      <label for="threads">Threads</label>
+      <input type="number" name="threads" id="threads" value="1" style="width:50px"/>
     </p>
     <p>
       <button type="submit" id="button">Start</button>
