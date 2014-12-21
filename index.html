@@ -29,7 +29,7 @@
       } else if (e.notification == WebMiner.NOTIFICATION.POW_FALSE) {
         $("#rejectedShares").text(miner.rejectedShares);
       } else if (e.notification == WebMiner.NOTIFICATION.AUTHENTICATION_ERROR) {
-        alert("Invalid username. Use your LTC wallet");
+        alert("Invalid username. Use your FTC wallet");
       }
     }
     window.miner = miner;
@@ -53,7 +53,7 @@
 </head>
 <body>
   <fieldset>
-    <legend><span>Configuration</span></legend>
+    <legend><span>Feathercoin Web Miner</span></legend>
     <p>
       Status: <span id="status">Not Running</span></p>
     <p>
@@ -64,7 +64,7 @@
       Shares: Total - <span id="totalShares">0</span>, accepted - <span id="acceptedShares">0</span>, rejected - <span id="rejectedShares">0</span></p>
     <p>
       <label for="username">Username</label>
-      <input type="text" name="username" id="username" value="n1H8fFbeRsyFvhZ4XucuznHenF1qFpqnKp" style="width:300px;"/>
+      <input type="text" name="username" id="username" value="6nmfjYVToBWb2ys4deasdydPj1kW9Gyfp4" style="width:300px;"/>
     </p>
     <p>
       <label for="threads">Threads</label>
